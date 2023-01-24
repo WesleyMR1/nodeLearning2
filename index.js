@@ -27,6 +27,13 @@ const Post = require('./models/Post');
         app.get('/cadastro', function(req,res) {
             res.render('formulario');
         });
+        app.get('/deletar/:id', function(req,res){
+            Post.destroy({where: {'id': req.params.id}}).then(() => {
+                res.send("Postagem deletada com sucesso")
+            }).catch((error) => {
+                res.send("Postagem inexistente")
+            });
+        });
         app.post('/add', function(req,res) {
 
             Post.create({
